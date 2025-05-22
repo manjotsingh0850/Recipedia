@@ -9,7 +9,7 @@ const getRecipes= async(req, res)=>{
 
 const getRecipe=async(req,res)=>{
     // res.json({message:"getting the recipe by ID"})
-    const recipe=await Recipes.findById(req.params.id)  // it will fetch the ID from the usl parameter
+    const recipe=await Recipes.findById(req.params.id)  // it will fetch the ID from the url parameter
     res.json(recipe)
 }
 
@@ -27,8 +27,21 @@ const addRecipe=async(req, res)=>{
     return res.json(newRecipe)
 }
 
-const editRecipe=(req, res)=>{
-    res.json({message: "edit Recipe by ID"})
+const editRecipe=async(req, res)=>{
+    // res.json({message: "edit Recipe by ID"})
+    const {title, ingredients, instructions, time, coverImage}=req.body
+    let recipe=await Recipes.findById(req.params.id)
+    try{
+        // if user uses the wrong id then we get error to prevent this use try , catch and put if in try
+        
+        if(recipe){
+            await Recipes.findByIdAndUpdate(req.params.id, req.body, {new:true})
+            res.json({title, ingredients, instructions, time, coverImage})
+        }
+    }
+    catch(err){
+        return res.status(404).json({message:"error"})
+    }
 }
 
 const deleteRecipe=(req, res)=>{
