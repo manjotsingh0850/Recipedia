@@ -27,7 +27,7 @@ const addRecipe=async(req, res)=>{
     return res.json(newRecipe)
 }
 
-const editRecipe=async(req, res)=>{
+const editRecipe=async(req, res)=>{ // editRecipe controller func. this will firstly search value by ID and then  delete the existing values and then updated it on the basis of ID of the same value."
     // res.json({message: "edit Recipe by ID"})
     const {title, ingredients, instructions, time, coverImage}=req.body
     let recipe=await Recipes.findById(req.params.id)
