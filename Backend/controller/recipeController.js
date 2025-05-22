@@ -2,7 +2,7 @@ const Recipes = require('../models/recipeModels')
 
 const getRecipes= async(req, res)=>{
     // res.json({message:"hello i am in controller"})
-    const recipes=await Recipes.fimd()
+    const recipes=await Recipes.find()
     return res.json(recipes)
 }
 
