@@ -7,8 +7,10 @@ const getRecipes= async(req, res)=>{
 }
 
 
-const getRecipe=(req,res)=>{
-    res.json({message:"getting the recipe by ID"})
+const getRecipe=async(req,res)=>{
+    // res.json({message:"getting the recipe by ID"})
+    const recipe=await Recipes.findById(req.params.id)  // it will fetch the ID from the usl parameter
+    res.json(recipe)
 }
 
 const addRecipe=async(req, res)=>{
