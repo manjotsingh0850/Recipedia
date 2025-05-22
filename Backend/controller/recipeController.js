@@ -1,3 +1,5 @@
+const Recipes = require('../models/recipeModels')
+
 const getRecipes=(req,res)=>{
     res.json({message:"hello i am in controller"})
 }
@@ -6,8 +8,18 @@ const getRecipe=(req,res)=>{
     res.json({message:"getting the recipe by ID"})
 }
 
-const addRecipe=(req, res)=>{
-    res.json({message: "(adding)posting the recipe"})
+const addRecipe=async(req, res)=>{
+    // res.json({message: "(adding)posting the recipe"})
+    const{title, ingredients, instructions, time, coverImage}=req.body
+        
+    if(!title || !ingredients ||!instructions ||!time ||!coverImage){
+        res.json({message:"Required fields can't be empty"})
+    }
+
+    const newRecipe=await Recipes.create({
+        title, ingredients, instructions, time, coverImage
+    })
+    return res.json(newRecipe)
 }
 
 const editRecipe=(req, res)=>{
