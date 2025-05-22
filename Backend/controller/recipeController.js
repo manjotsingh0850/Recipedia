@@ -1,8 +1,11 @@
 const Recipes = require('../models/recipeModels')
 
-const getRecipes=(req,res)=>{
-    res.json({message:"hello i am in controller"})
+const getRecipes= async(req, res)=>{
+    // res.json({message:"hello i am in controller"})
+    const recipes=await Recipes.fimd()
+    return res.json(recipes)
 }
+
 
 const getRecipe=(req,res)=>{
     res.json({message:"getting the recipe by ID"})
